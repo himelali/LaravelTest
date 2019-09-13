@@ -1,39 +1,135 @@
 <?php
 
 namespace App;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User implements AuthenticatableContract
 {
-    use Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * All of the user's attributes.
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $attributes;
 
     /**
-     * The attributes that should be hidden for arrays.
+     * Create a new generic User object.
      *
-     * @var array
+     * @param  array  $attributes
+     * @return void
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    public function __construct(array $attributes)
+    {
+        $this->attributes = $attributes;
+    }
 
     /**
-     * The attributes that should be cast to native types.
+     * Get the name of the unique identifier for the user.
      *
-     * @var array
+     * @return string
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function getAuthIdentifierName()
+    {
+        return "token";
+    }
+
+    /**
+     * Get the unique identifier for the user.
+     *
+     * @return mixed
+     */
+    public function getAuthIdentifier()
+    {
+        $name = $this->getAuthIdentifierName();
+        return $this->attributes[$name];
+    }
+
+    /**
+     * Get the password for the user.
+     *
+     * @return string
+     */
+    public function getAuthPassword()
+    {
+        // TODO: Implement getAuthPassword() method.
+    }
+
+    /**
+     * Get the token value for the "remember me" session.
+     *
+     * @return string
+     */
+    public function getRememberToken()
+    {
+        return $this->attributes[$this->getRememberTokenName()];
+    }
+
+    /**
+     * Set the token value for the "remember me" session.
+     *
+     * @param string $value
+     * @return void
+     */
+    public function setRememberToken($value)
+    {
+        $this->attributes[$this->getRememberTokenName()] = $value;
+    }
+
+    /**
+     * Get the column name for the "remember me" token.
+     *
+     * @return string
+     */
+    public function getRememberTokenName()
+    {
+        return 'remember_token';
+    }
+
+    /**
+     * Dynamically access the user's attributes.
+     *
+     * @param  string  $key
+     * @return mixed
+     */
+    public function __get($key)
+    {
+        return $this->attributes[$key];
+    }
+
+    /**
+     * Dynamically set an attribute on the user.
+     *
+     * @param  string  $key
+     * @param  mixed  $value
+     * @return void
+     */
+    public function __set($key, $value)
+    {
+        $this->attributes[$key] = $value;
+    }
+
+    /**
+     * Dynamically check if a value is set on the user.
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    public function __isset($key)
+    {
+        return isset($this->attributes[$key]);
+    }
+
+    /**
+     * Dynamically unset a value on the user.
+     *
+     * @param  string  $key
+     * @return void
+     */
+    public function __unset($key)
+    {
+        unset($this->attributes[$key]);
+    }
+
 }

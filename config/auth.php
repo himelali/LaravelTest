@@ -38,7 +38,8 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'curl_auth',
+            'hash' => false,
         ],
 
         'api' => [
@@ -66,11 +67,17 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'curl_auth' => [
+            'driver' => 'curl_auth',
+            //'model' => App\User::class,
+        ],
+
+        /*
+         * 'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-
+        */
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

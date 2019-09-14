@@ -15,7 +15,7 @@ class CurlUserProvider implements UserProvider
     private $curl;
 
     /**
-     * Create a new database user provider.
+     * Create a new curl request user provider.
      *
      * @param CurlRequestService $curl
      */

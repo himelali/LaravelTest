@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Interfaces\NoSqlServiceInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use Illuminate\Support\Facades\Session;
 
 class CurlRequestService implements NoSqlServiceInterface
 {
@@ -20,10 +21,9 @@ class CurlRequestService implements NoSqlServiceInterface
      */
     public function create(array $data)
     {
-        dd($data);
         try {
             $client = new Client();
-            $res = $client->request('post', 'http://exercise.api.rebiton.com/auth/register', [
+            $res = $client->request('post', 'https://exercise.api.rebiton.com/auth/register', [
                 'form_params' => [
                     "code" => $data['code'],
                     "email" => $data['email'],
@@ -39,7 +39,7 @@ class CurlRequestService implements NoSqlServiceInterface
             $body = json_decode($body);
             return isset($body->data) ? $body->data : false;
         } catch (ClientException $exception) {
-            session()->flash("curl_error", $exception->getResponse()->getBody());
+            Session::flash("curl_error", $exception->getResponse()->getBody());
             return false;
         }
     }
@@ -96,7 +96,7 @@ class CurlRequestService implements NoSqlServiceInterface
             $body = json_decode($body);
             return isset($body->data) ? $body->data : false;
         } catch (ClientException $exception) {
-            session()->flash("curl_error", $exception->getResponse()->getBody());
+            Session::flash("curl_error", $exception->getResponse()->getBody());
             return null;
         }
     }
@@ -125,7 +125,7 @@ class CurlRequestService implements NoSqlServiceInterface
             $body = json_decode($body);
             return isset($body->data) ? $body->data : false;
         } catch (ClientException $exception) {
-            session()->flash("curl_error", $exception->getResponse()->getBody());
+            Session::flash("curl_error", $exception->getResponse()->getBody());
             return false;
         }
     }
@@ -148,7 +148,7 @@ class CurlRequestService implements NoSqlServiceInterface
             $body = json_decode($body);
             return isset($body->data) ? $body->data : false;
         } catch (ClientException $exception) {
-            session()->flash("curl_error", $exception->getResponse()->getBody());
+            Session::flash("curl_error", $exception->getResponse()->getBody());
             return false;
         }
     }

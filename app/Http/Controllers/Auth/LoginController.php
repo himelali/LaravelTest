@@ -21,6 +21,14 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            $this->username() => 'required|email|max:255',
+            'password' => 'required|string|min:6',
+        ]);
+    }
+
     /**
      * Log the user out of the application.
      *
@@ -30,7 +38,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         $request->session()->invalidate();
-        return $this->loggedOut($request) ?: redirect('/');
+        return $this->loggedOut($request) ?: redirect('/login');
     }
 
     /**

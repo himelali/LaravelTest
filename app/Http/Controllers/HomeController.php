@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -14,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except("language");
     }
 
     /**
@@ -25,5 +24,14 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function language(Request $request) {
+        $request->validate([
+            'language' => 'required|in:en,bg',
+        ]);
+        $language = $request->post("language") ?? 'en';
+        session(['app_language' => $language]);
+        return redirect()->back();
     }
 }

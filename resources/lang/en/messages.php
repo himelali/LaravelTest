@@ -2,8 +2,12 @@
 
 return [
     'laravel' => 'Laravel',
+    'language' => 'Language',
+    'language.en' => 'English',
+    'language.bg' => 'български',
     'invalid' => 'Invalid username or password',
     'dashboard' => 'Dashboard',
+    'logged_id' => 'You are logged in!',
     'welcome' => 'Welcome to our application',
     'email' => 'Email',
     'password' => 'Password',

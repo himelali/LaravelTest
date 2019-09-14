@@ -2,7 +2,11 @@
 
 return [
     'laravel' => 'Laravel',
+    'language' => 'език',
+    'language.en' => 'English',
+    'language.bg' => 'български',
     'dashboard' => 'Табло',
+    'logged_id' => 'Влезли сте!',
     'welcome' => 'Добре дошли в нашето приложение',
     'email' => 'електронна поща',
     'password' => 'парола',

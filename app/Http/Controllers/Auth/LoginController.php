@@ -37,7 +37,9 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
+        $value = $request->session()->get(getLanguageKey());
         $request->session()->invalidate();
+        $request->session()->put(getLanguageKey(), $value);
         return $this->loggedOut($request) ?: redirect('/login');
     }
 

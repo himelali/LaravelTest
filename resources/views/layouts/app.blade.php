@@ -39,6 +39,31 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ __('messages.language') }} <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('language') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('language').value = 'en';
+                                                     document.getElementById('language-form').submit();">
+                                    {{ __('messages.language.en') }}
+                                </a>
+
+                                <a class="dropdown-item" href="{{ route('language') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('language').value = 'bg';
+                                                     document.getElementById('language-form').submit();">
+                                    {{ __('messages.language.bg') }}
+                                </a>
+
+                                <form id="language-form" action="{{ route('language') }}" method="POST" style="display: none;">
+                                    @csrf
+                                    <input type="hidden" name="language" value="en" id="language">
+                                </form>
+                            </div>
+                        </li>
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link text-capitalize" href="{{ route('login') }}">{{ __('messages.login') }}</a>

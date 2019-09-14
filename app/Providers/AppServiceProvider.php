@@ -26,15 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        App::setLocale($this->getLanguage());
+       //
     }
 
-    private function getLanguage() {
-        try {
-            $data = (new CurlRequestService())->language();
-            return isset($data->language) ? $data->language : "en";
-        } catch (ClientException $e) {
-            return "en";
-        }
-    }
 }

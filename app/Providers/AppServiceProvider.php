@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Services\CurlRequestService;
-use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
         try {
             $data = (new CurlRequestService())->language();
             return isset($data->language) ? $data->language : "en";
-        } catch (GuzzleException $e) {
+        } catch (ClientException $e) {
             return "en";
         }
     }

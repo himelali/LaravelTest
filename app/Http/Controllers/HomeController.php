@@ -31,7 +31,7 @@ class HomeController extends Controller
             'language' => 'required|in:en,bg',
         ]);
         $language = $request->post("language") ?? 'en';
-        session(['app_language' => $language]);
-        return redirect()->back();
+        $cookie = cookie(getLanguageKey(), $language, 43829); // 1 month cookie
+        return redirect()->back()->withCookie($cookie);
     }
 }

@@ -18,7 +18,8 @@ class LanguageMiddleware
      */
     public function handle($request, Closure $next)
     {
-        $language = session(getLanguageKey()) ?? $this->getLanguage();
+        //$language = session(getLanguageKey()) ?? $this->getLanguage();
+        $language = $request->cookie(getLanguageKey()) ?? $this->getLanguage();
         App::setLocale($language);
         return $next($request);
     }
